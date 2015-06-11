@@ -1,5 +1,11 @@
 @extends('app')
 
+@section('nav')
+  <div class="navbar-header">
+    <a class="navbar-brand" href="{{ url('/') }}">Гуртожиток</a>
+  </div>
+@endsection
+
 @section('content')
 <div class="container-fluid">
 	<div class="row">
