@@ -4,12 +4,17 @@
         <div class="panel panel-default">
           <div class="panel-heading">Гуртожитки</div>
           <div class="panel-body">
+            <a type="button" class="btn btn-sm btn-default" href="{{ url('settings/create-hostel') }}">Створити новий</a>
+            <br/>
+            <br/>
             <table class="table table-striped">
               <tr>
                 <th>Назва</th>
                 <th>Адреса</th>
                 <th>Телефон</th>
                 <th>Площа, м2</th>
+                <th></th>
+                <th></th>
               </tr>
               @foreach($hostels as $hostel)
                 <tr>
@@ -17,6 +22,8 @@
                   <td>{{ $hostel->address }}</td>
                   <td>{{ $hostel->phone }}</td>
                   <td>{{ $hostel->area }}</td>
+                  <td><a href="{{ url('settings/edit-hostel') }}/{{ $hostel->id }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
+                  <td><a href="{{ url('settings/delete-hostel') }}/{{ $hostel->id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
               @endforeach
             </table>
@@ -25,17 +32,24 @@
         <div class="panel panel-default">
           <div class="panel-heading">Коменданти</div>
           <div class="panel-body">
+            <a type="button" class="btn btn-sm btn-default" href="{{ url('settings/create-user') }}">Створити новий</a>
+            <br/>
+            <br/>
             <table class="table table-striped">
               <tr>
                 <th>Імя</th>
                 <th>Ел. пошта</th>
                 <th>Гуртожиток</th>
+                <th></th>
+                <th></th>
               </tr>
               @foreach($users as $user)
                 <tr>
                   <td>{{ $user->name }}</td>
                   <td>{{ $user->email }}</td>
                   <td>{{ $user->hostel->name }}</td>
+                  <td><a href="{{ url('settings/edit-user') }}/{{ $user->id }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
+                  <td><a href="{{ url('settings/delete-user') }}/{{ $user->id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                 </tr>
               @endforeach
             </table>
@@ -82,12 +96,68 @@
                     <td>{{ $room->liver_max }}</td>
                     <td>{{ $room->block }}</td>
                     <td>{{ $room->area }}</td>
-                    <td><a href="{{ url('settings/edit-room') }}/{{ $room->id }}">E</a></td>
-                    <td><a href="{{ url('settings/delete-room') }}/{{ $room->id }}">X</a></td>
+                    <td><a href="{{ url('settings/edit-room') }}/{{ $room->id }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
+                    <td><a href="{{ url('settings/delete-room') }}/{{ $room->id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
                   </tr>
                 @endforeach
               </table>
             @endif
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">Факультети</div>
+          <div class="panel-body">
+            <a type="button" class="btn btn-sm btn-default" href="{{ url('settings/create-facult') }}">Створити новий</a>
+            <br/>
+            <br/>
+            <table class="table table-striped">
+              <tr>
+                <th>Назва</th>
+                <th>Коротка назва</th>
+                <th>Тривалість навчання, роки</th>
+                <th></th>
+                <th></th>
+              </tr>
+              @foreach($faculties as $facult)
+                <tr>
+                  <td>{{ $facult->name }}</td>
+                  <td>{{ $facult->short_name }}</td>
+                  <td>{{ $facult->years }}</td>
+                  <td><a href="{{ url('settings/edit-facult') }}/{{ $facult->id }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
+                  <td><a href="{{ url('settings/delete-facult') }}/{{ $facult->id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+                </tr>
+              @endforeach
+            </table>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">Групи</div>
+          <div class="panel-body">
+            <a type="button" class="btn btn-sm btn-default" href="{{ url('settings/create-group') }}">Створити новий</a>
+            <br/>
+            <br/>
+            <table class="table table-striped">
+              <tr>
+                <th>Факультет</th>
+                <th>Курс</th>
+                <th>Номер</th>
+                <th>Наставник</th>
+                <th>Телефон</th>
+                <th></th>
+                <th></th>
+              </tr>
+              @foreach($groups as $group)
+                <tr>
+                  <td>{{ $group->facult->short_name }}</td>
+                  <td>{{ $group->course }}</td>
+                  <td>{{ $group->number }}</td>
+                  <td>{{ $group->leader }}</td>
+                  <td>{{ $group->phone }}</td>
+                  <td><a href="{{ url('settings/edit-group') }}/{{ $group->id }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
+                  <td><a href="{{ url('settings/delete-group') }}/{{ $group->id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+                </tr>
+              @endforeach
+            </table>
           </div>
         </div>
 @endsection

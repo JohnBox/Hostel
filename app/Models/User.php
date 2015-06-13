@@ -18,7 +18,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
   public $timestamps = false;
 
-  function hostel()
+  public function hostel()
   {
     return $this->belongsTo('App\Models\Hostel');
   }
