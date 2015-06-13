@@ -1,6 +1,9 @@
 @extends('setting.master')
 
 @section('content')
+  <div class="panel panel-default">
+    <div class="panel-heading">Група</div>
+    <div class="panel-body">
         <form method="POST" action="{{ url('settings/edit-group') }}">
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
           <input type="hidden" name="id" value="{{ $group->id }}"/>
@@ -30,4 +33,6 @@
           </div>
           <button type="submit" class="btn btn-default">Зберегти</button>
         </form>
+    </div>
+  </div>
 @endsection

@@ -5,9 +5,9 @@
     <div class="panel-heading">Кімнати</div>
       <div class="panel-body">
         <ul class="nav nav-tabs">
-          <li role="presentation" class="active"><a>Всі</a></li>
-          <li role="presentation"><a href="{{ url('/livers/active') }}">Заселені</a></li>
-          <li role="presentation"><a href="{{ url('/livers/deative') }}">Виселені</a></li>
+          <li role="presentation"><a href="{{ url('/livers') }}}">Всі</a></li>
+          <li role="presentation" class="active"><a>Заселені</a></li>
+          <li role="presentation"><a href="{{ url('/livers/deactive') }}">Виселені</a></li>
         </ul>
         <br/>
         <a type="button" class="btn btn-sm btn-default" href="{{ url('liver/create-liver') }}">Створити новий</a>

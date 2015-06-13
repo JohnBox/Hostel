@@ -8,19 +8,24 @@
         <ul>
         @foreach($rooms as $room)
             <li>
-              <a class='normal' href='#'>
-                <h2>{{ $room->number }}</h2>
+              <a class='normal' href='{{ url('/livers/show') }}/{{ $room->id }}'>
+                <span class="number">{{ $room->number }}<br/>
+                  <span class="count">{{ $room->liver_count }}/{{ $room->liver_max }}</span>
+                </span>
               </a>
               <div class='info'>
-                john box
-                <br/>
-                leila wong
-                <br/>
-                marty style
+                <h3>
+                  John Box
+                  <br/>
+                  Leila Wong
+                  <br/>
+                  Marty Style
+                </h3>
               </div>
             </li>
         @endforeach
         </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -31,12 +36,41 @@
     var room_container = document.getElementById('room_container');
     var nodes  = room_container.querySelectorAll('li'),
         _nodes = [].slice.call(nodes, 0);
-    var getDirection = function (ev, obj) {
-      var w = obj.offsetWidth,
-          h = obj.offsetHeight,
-          x = (ev.pageX - obj.offsetLeft - (w / 2) * (w > h ? (h / w) : 1)),
-          y = (ev.pageY - obj.offsetTop - (h / 2) * (h > w ? (w / h) : 1));
-      return Math.round( Math.atan2(y, x) / 1.57079633 + 5 ) % 4;
+    var getDirection = function (e, obj) {
+      var xDir, yDir;
+      var jEl = $(obj),
+      w = jEl.outerWidth(),
+      h = jEl.outerHeight(),
+      off = jEl.offset(),
+      x = e.pageX - off.left,
+      y = e.pageY - off.top,
+      xShift, // сдвиг от правой или левой границы
+      yShift, // сдвиг от верхней или нижней границы
+      xText,
+      yText,
+      itogText;
+      if (x / w > .5) {
+        xShift = w - x;
+        xText = 'справа';
+        xDir = 1;
+
+      } else {
+        xShift = x;
+        xText = 'слева';
+        xDir = 3;
+      }
+      if (y / h > .5) {
+        yShift = h - y;
+        yText = 'снизу';
+        yDir = 2;
+      } else {
+        yShift = y;
+        yText = 'сверху';
+        yDir = 0;
+      }
+      itogText = (xShift < yShift) ? xText : yText;
+      var dir = (xShift < yShift) ? xDir : yDir;
+      return dir;
     };
     var addClass = function ( ev, obj, state ) {
       var direction = getDirection( ev, obj ),

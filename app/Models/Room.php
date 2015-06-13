@@ -8,9 +8,14 @@ class Room extends Model {
 
   public $timestamps = false;
 
-  function hostel()
+  public function hostel()
   {
     return $this->belongsTo('App\Models\Hostel');
+  }
+
+  public function livers()
+  {
+    return $this->hasMany('App\Models\Liver');
   }
 
 }

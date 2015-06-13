@@ -3,15 +3,27 @@
   font-weight: 300;
 }
 #room_container {
+  margin: 0;
+  padding: 0;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
   /* you can ignore this ones */
 }
 #room_container li {
   -webkit-perspective: 320px;
-  -moz-perspective: 320px;
+  perspective: 320px;
 }
 #room_container .info {
   -webkit-transform: rotate3d(1, 0, 0, 90deg);
-  -moz-transform: rotate3d(1, 0, 0, 90deg);
+  transform: rotate3d(1, 0, 0, 90deg);
   width: 100%;
   height: 100%;
   padding: 20px;
@@ -25,213 +37,213 @@
   -webkit-transform-origin: 50% 0%;
   transform-origin: 50% 0%;
   -webkit-animation: in-top 300ms ease 0ms 1 forwards;
-  -moz-animation: in-top 300ms ease 0ms 1 forwards;
+  animation: in-top 300ms ease 0ms 1 forwards;
 }
 #room_container .in-right .info {
   -webkit-transform-origin: 100% 0%;
   transform-origin: 100% 0%;
   -webkit-animation: in-right 300ms ease 0ms 1 forwards;
-  -moz-animation: in-right 300ms ease 0ms 1 forwards;
+  animation: in-right 300ms ease 0ms 1 forwards;
 }
 #room_container .in-bottom .info {
   -webkit-transform-origin: 50% 100%;
   transform-origin: 50% 100%;
   -webkit-animation: in-bottom 300ms ease 0ms 1 forwards;
-  -moz-animation: in-bottom 300ms ease 0ms 1 forwards;
+  animation: in-bottom 300ms ease 0ms 1 forwards;
 }
 #room_container .in-left .info {
   -webkit-transform-origin: 0% 0%;
   transform-origin: 0% 0%;
   -webkit-animation: in-left 300ms ease 0ms 1 forwards;
-  -moz-animation: in-left 300ms ease 0ms 1 forwards;
+  animation: in-left 300ms ease 0ms 1 forwards;
 }
 #room_container .out-top .info {
   -webkit-transform-origin: 50% 0%;
   transform-origin: 50% 0%;
   -webkit-animation: out-top 300ms ease 0ms 1 forwards;
-  -moz-animation: out-top 300ms ease 0ms 1 forwards;
+  animation: out-top 300ms ease 0ms 1 forwards;
 }
 #room_container .out-right .info {
   -webkit-transform-origin: 100% 50%;
   transform-origin: 100% 50%;
   -webkit-animation: out-right 300ms ease 0ms 1 forwards;
-  -moz-animation: out-right 300ms ease 0ms 1 forwards;
+  animation: out-right 300ms ease 0ms 1 forwards;
 }
 #room_container .out-bottom .info {
   -webkit-transform-origin: 50% 100%;
   transform-origin: 50% 100%;
   -webkit-animation: out-bottom 300ms ease 0ms 1 forwards;
-  -moz-animation: out-bottom 300ms ease 0ms 1 forwards;
+  animation: out-bottom 300ms ease 0ms 1 forwards;
 }
 #room_container .out-left .info {
   -webkit-transform-origin: 0% 0%;
   transform-origin: 0% 0%;
   -webkit-animation: out-left 300ms ease 0ms 1 forwards;
-  -moz-animation: out-left 300ms ease 0ms 1 forwards;
+  animation: out-left 300ms ease 0ms 1 forwards;
 }
 @-webkit-keyframes in-top {
   from {
     -webkit-transform: rotate3d(-1, 0, 0, 90deg);
-    -moz-transform: rotate3d(-1, 0, 0, 90deg);
+    transform: rotate3d(-1, 0, 0, 90deg);
   }
   to {
     -webkit-transform: rotate3d(0, 0, 0, 0deg);
-    -moz-transform: rotate3d(0, 0, 0, 0deg);
+    transform: rotate3d(0, 0, 0, 0deg);
   }
 }
 @keyframes in-top {
   from {
     -webkit-transform: rotate3d(-1, 0, 0, 90deg);
-    -moz-transform: rotate3d(-1, 0, 0, 90deg);
+    transform: rotate3d(-1, 0, 0, 90deg);
   }
   to {
     -webkit-transform: rotate3d(0, 0, 0, 0deg);
-    -moz-transform: rotate3d(0, 0, 0, 0deg);
+    transform: rotate3d(0, 0, 0, 0deg);
   }
 }
 @-webkit-keyframes in-right {
   from {
     -webkit-transform: rotate3d(0, -1, 0, 90deg);
-    -moz-transform: rotate3d(0, -1, 0, 90deg);
+    transform: rotate3d(0, -1, 0, 90deg);
   }
   to {
     -webkit-transform: rotate3d(0, 0, 0, 0deg);
-    -moz-transform: rotate3d(0, 0, 0, 0deg);
+    transform: rotate3d(0, 0, 0, 0deg);
   }
 }
 @keyframes in-right {
   from {
     -webkit-transform: rotate3d(0, -1, 0, 90deg);
-    -moz-transform: rotate3d(0, -1, 0, 90deg);
+    transform: rotate3d(0, -1, 0, 90deg);
   }
   to {
     -webkit-transform: rotate3d(0, 0, 0, 0deg);
-    -moz-transform: rotate3d(0, 0, 0, 0deg);
+    transform: rotate3d(0, 0, 0, 0deg);
   }
 }
 @-webkit-keyframes in-bottom {
   from {
     -webkit-transform: rotate3d(1, 0, 0, 90deg);
-    -moz-transform: rotate3d(1, 0, 0, 90deg);
+    transform: rotate3d(1, 0, 0, 90deg);
   }
   to {
     -webkit-transform: rotate3d(0, 0, 0, 0deg);
-    -moz-transform: rotate3d(0, 0, 0, 0deg);
+    transform: rotate3d(0, 0, 0, 0deg);
   }
 }
 @keyframes in-bottom {
   from {
     -webkit-transform: rotate3d(1, 0, 0, 90deg);
-    -moz-transform: rotate3d(1, 0, 0, 90deg);
+    transform: rotate3d(1, 0, 0, 90deg);
   }
   to {
     -webkit-transform: rotate3d(0, 0, 0, 0deg);
-    -moz-transform: rotate3d(0, 0, 0, 0deg);
+    transform: rotate3d(0, 0, 0, 0deg);
   }
 }
 @-webkit-keyframes in-left {
   from {
     -webkit-transform: rotate3d(0, 1, 0, 90deg);
-    -moz-transform: rotate3d(0, 1, 0, 90deg);
+    transform: rotate3d(0, 1, 0, 90deg);
   }
   to {
     -webkit-transform: rotate3d(0, 0, 0, 0deg);
-    -moz-transform: rotate3d(0, 0, 0, 0deg);
+    transform: rotate3d(0, 0, 0, 0deg);
   }
 }
 @keyframes in-left {
   from {
     -webkit-transform: rotate3d(0, 1, 0, 90deg);
-    -moz-transform: rotate3d(0, 1, 0, 90deg);
+    transform: rotate3d(0, 1, 0, 90deg);
   }
   to {
     -webkit-transform: rotate3d(0, 0, 0, 0deg);
-    -moz-transform: rotate3d(0, 0, 0, 0deg);
+    transform: rotate3d(0, 0, 0, 0deg);
   }
 }
 @-webkit-keyframes out-top {
   from {
     -webkit-transform: rotate3d(0, 0, 0, 0deg);
-    -moz-transform: rotate3d(0, 0, 0, 0deg);
+    transform: rotate3d(0, 0, 0, 0deg);
   }
   to {
     -webkit-transform: rotate3d(-1, 0, 0, 104deg);
-    -moz-transform: rotate3d(-1, 0, 0, 104deg);
+    transform: rotate3d(-1, 0, 0, 104deg);
   }
 }
 @keyframes out-top {
   from {
     -webkit-transform: rotate3d(0, 0, 0, 0deg);
-    -moz-transform: rotate3d(0, 0, 0, 0deg);
+    transform: rotate3d(0, 0, 0, 0deg);
   }
   to {
     -webkit-transform: rotate3d(-1, 0, 0, 104deg);
-    -moz-transform: rotate3d(-1, 0, 0, 104deg);
+    transform: rotate3d(-1, 0, 0, 104deg);
   }
 }
 @-webkit-keyframes out-right {
   from {
     -webkit-transform: rotate3d(0, 0, 0, 0deg);
-    -moz-transform: rotate3d(0, 0, 0, 0deg);
+    transform: rotate3d(0, 0, 0, 0deg);
   }
   to {
     -webkit-transform: rotate3d(0, -1, 0, 104deg);
-    -moz-transform: rotate3d(0, -1, 0, 104deg);
+    transform: rotate3d(0, -1, 0, 104deg);
   }
 }
 @keyframes out-right {
   from {
     -webkit-transform: rotate3d(0, 0, 0, 0deg);
-    -moz-transform: rotate3d(0, 0, 0, 0deg);
+    transform: rotate3d(0, 0, 0, 0deg);
   }
   to {
     -webkit-transform: rotate3d(0, -1, 0, 104deg);
-    -moz-transform: rotate3d(0, -1, 0, 104deg);
+    transform: rotate3d(0, -1, 0, 104deg);
   }
 }
 @-webkit-keyframes out-bottom {
   from {
     -webkit-transform: rotate3d(0, 0, 0, 0deg);
-    -moz-transform: rotate3d(0, 0, 0, 0deg);
+    transform: rotate3d(0, 0, 0, 0deg);
   }
   to {
     -webkit-transform: rotate3d(1, 0, 0, 104deg);
-    -moz-transform: rotate3d(1, 0, 0, 104deg);
+    transform: rotate3d(1, 0, 0, 104deg);
   }
 }
 @keyframes out-bottom {
   from {
     -webkit-transform: rotate3d(0, 0, 0, 0deg);
-    -moz-transform: rotate3d(0, 0, 0, 0deg);
+    transform: rotate3d(0, 0, 0, 0deg);
   }
   to {
     -webkit-transform: rotate3d(1, 0, 0, 104deg);
-    -moz-transform: rotate3d(1, 0, 0, 104deg);
+    transform: rotate3d(1, 0, 0, 104deg);
   }
 }
 @-webkit-keyframes out-left {
   from {
     -webkit-transform: rotate3d(0, 0, 0, 0deg);
-    -moz-transform: rotate3d(0, 0, 0, 0deg);
+    transform: rotate3d(0, 0, 0, 0deg);
   }
   to {
     -webkit-transform: rotate3d(0, 1, 0, 104deg);
-    -moz-transform: rotate3d(0, 1, 0, 104deg);
+    transform: rotate3d(0, 1, 0, 104deg);
   }
 }
 @keyframes out-left {
   from {
     -webkit-transform: rotate3d(0, 0, 0, 0deg);
-    -moz-transform: rotate3d(0, 0, 0, 0deg);
+    transform: rotate3d(0, 0, 0, 0deg);
   }
   to {
     -webkit-transform: rotate3d(0, 1, 0, 104deg);
-    -moz-transform: rotate3d(0, 1, 0, 104deg);
+    transform: rotate3d(0, 1, 0, 104deg);
   }
 }
 #room_container ul {
+  margin: 0;
   padding: 0;
-  margin: 0 auto 0 2px;
 }
 #room_container ul:after {
   content: "";
@@ -243,27 +255,19 @@
   float: left;
   width: 160px;
   height: 160px;
-  margin: 11px;
+  margin: 11.1px;
   padding: 0;
   list-style: none;
 }
 #room_container li a {
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
+  display: inline-block;
   vertical-align: top;
   text-decoration: none;
 }
-#room_container li h2 {
+#room_container li h3 {
   margin: 0;
-  font-size: 24px;
-  color: rgba(0, 0, 0, 0.9);
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.9);
 }
 #room_container li p {
   font-size: 12px;
@@ -274,13 +278,34 @@
   width: 100%;
   height: 100%;
   background-color: #ECF0F1;
+  color: rgba(52, 73, 94, 0.6);
   box-shadow: inset 0 2px 20px #e6ebed;
   text-align: center;
+  line-height: 75px;
+}
+#room_container li .normal .number {
   font-size: 50px;
-  line-height: 200px;
+  pointer-events: none;
+}
+#room_container li .normal .number .count {
+  font-size: 25px;
+}
+#room_container li .normal svg {
+  pointer-events: none;
+  width: 50px;
+}
+#room_container li .normal svg path {
+  fill: rgba(52, 73, 94, 0.2);
 }
 #room_container * {
   box-sizing: border-box;
+}
+#room_container h1 {
+  margin: 0 auto 5px;
+  text-align: center;
+}
+#room_container h3 {
+  font-family: 'Bree Serif', serif;
 }
 
 /*# sourceMappingURL=app.css.map */
