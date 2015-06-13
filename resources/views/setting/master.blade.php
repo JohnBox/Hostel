@@ -11,7 +11,7 @@
       <li><a href="{{ url('/violations') }}">Порушення</a></li>
       <li><a href="{{ url('/payments') }}">Розрахунки</a></li>
       <li><a href="{{ url('/reports') }}">Звіти</a></li>
-      <li><a href="{{ url('/settings') }}">Налаштування</a></li>
+      <li class="active"><a href="{{ url('/settings') }}">Налаштування</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       @if (Auth::guest())
@@ -30,4 +30,8 @@
 
 @section('content')
   @yield('content')
+@endsection
+
+@section('script')
+  @yield('script')
 @endsection

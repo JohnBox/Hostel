@@ -5,6 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Гуртожик</title>
+	<link href="{{ asset('/css/bootstrap.css') }}" rel="stylesheet">
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
   <style>
@@ -46,10 +47,17 @@
 		</div>
 	</nav>
 
-	@yield('content')
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        @yield('content')
+      </div>
+    </div>
+  </div>
 
 	<!-- Scripts -->
 	<script src="{{ asset('/js/jquery.min.js') }}"></script>
 	<script src="{{ asset('/js/bootstrap.min.js') }}"></script>
+  @yield('script')
 </body>
 </html>
