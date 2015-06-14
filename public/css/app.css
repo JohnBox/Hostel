@@ -307,5 +307,17 @@
 #room_container h3 {
   font-family: 'Bree Serif', serif;
 }
+#tabs li:not(.disabled) * {
+  cursor: pointer !important;
+}
+.photo {
+  float: right;
+  width: 280px;
+  height: 280px;
+}
+.photo img {
+  width: 280px;
+  height: 280px;
+}
 
 /*# sourceMappingURL=app.css.map */

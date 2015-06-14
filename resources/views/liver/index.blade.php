@@ -2,7 +2,7 @@
 
 @section('content')
   <div class="panel panel-default">
-    <div class="panel-heading">Кімнати</div>
+    <div class="panel-heading">Проживаючі</div>
       <div class="panel-body">
         <ul class="nav nav-tabs">
           <li role="presentation" class="active"><a>Всі</a></li>
@@ -10,7 +10,7 @@
           <li role="presentation"><a href="{{ url('/livers/deative') }}">Виселені</a></li>
         </ul>
         <br/>
-        <a type="button" class="btn btn-sm btn-default" href="{{ url('liver/create-liver') }}">Створити новий</a>
+        <a type="button" class="btn btn-sm btn-default" href="{{ url('livers/create-liver') }}">Створити новий</a>
         <br/>
         <br/>
         <table class="table table-striped">
