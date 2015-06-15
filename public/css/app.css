@@ -311,6 +311,8 @@
   cursor: pointer !important;
 }
 .photo {
+  margin-top: 34px;
+  margin-right: 16px;
   float: right;
   width: 280px;
   height: 280px;

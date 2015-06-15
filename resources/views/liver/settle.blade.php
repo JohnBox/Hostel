@@ -4,11 +4,16 @@
   <div class="panel panel-default">
     <div class="panel-heading">Кімнати</div>
     <div class="panel-body">
+      <form method="POST" action="{{ url('/livers/settle') }}" class="hidden">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="id" value="{{ $liver->id }}"/>
+        <input type="hidden" name="room" id="room" value=""/>
+      </form>
       <div id="room_container">
         <ul>
         @foreach($rooms as $room)
             <li>
-              <a class='normal' href="{{ url('/rooms/show') }}/{{ $room->id }}">
+              <a class='normal'>
                 <span class="number">{{ $room->number }}<br/>
                   <span class="count">{{ $room->livers()->count() }}/{{ $room->liver_max }}</span>
                 </span>
@@ -44,33 +49,23 @@
       off = jEl.offset(),
       x = e.pageX - off.left,
       y = e.pageY - off.top,
-      xShift, // сдвиг от правой или левой границы
-      yShift, // сдвиг от верхней или нижней границы
-      xText,
-      yText,
-      itogText;
+      xShift,
+      yShift;
       if (x / w > .5) {
         xShift = w - x;
-        xText = 'справа';
         xDir = 1;
-
       } else {
         xShift = x;
-        xText = 'слева';
         xDir = 3;
       }
       if (y / h > .5) {
         yShift = h - y;
-        yText = 'снизу';
         yDir = 2;
       } else {
         yShift = y;
-        yText = 'сверху';
         yDir = 0;
       }
-      itogText = (xShift < yShift) ? xText : yText;
-      var dir = (xShift < yShift) ? xDir : yDir;
-      return dir;
+      return (xShift < yShift) ? xDir : yDir;;
     };
     var addClass = function ( ev, obj, state ) {
       var direction = getDirection( ev, obj ),
@@ -84,6 +79,7 @@
       }
       obj.classList.add( state + class_suffix );
     };
+    var form = document.forms[0];
     _nodes.forEach(function (el) {
       el.addEventListener('mouseover', function (ev) {
         addClass( ev, this, 'in' );
@@ -91,6 +87,14 @@
       el.addEventListener('mouseout', function (ev) {
         addClass( ev, this, 'out' );
       }, false);
+      el.addEventListener('click', function (ev) {
+        var room =$('#room');
+        var livers = ev.target.getElementsByTagName('span')[0].getElementsByTagName('span')[0].innerHTML.split('/');
+        if (livers[0] != livers[1]) {
+          room.val(parseInt(ev.target.getElementsByTagName('span')[0].innerHTML));
+          form.submit();
+        }
+      })
     });
   </script>
 @endsection

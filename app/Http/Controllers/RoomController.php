@@ -6,10 +6,24 @@ use Illuminate\Http\Request;
 use App\Models\Room;
 use Illuminate\Support\Facades\Auth;
 
-class RoomController extends Controller {
+class RoomController extends Controller
+{
 
   public function getIndex()
   {
-    return view('room.index', ['rooms' => Room::where('hostel_id','=',Auth::user()->hostel->id)->get()]);
+    return view('room.index', ['rooms' => Room::where('hostel_id', '=', Auth::user()->hostel->id)->get()]);
+  }
+
+  public function getShow($id)
+  {
+    return view('room.show', ['room' => Room::find($id)]);
+  }
+  public function getSettle($id)
+  {
+
+  }
+  public function getDeleteLiver($id)
+  {
+
   }
 }

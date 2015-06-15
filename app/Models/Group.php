@@ -11,4 +11,8 @@ class Group extends Model {
     return $this->belongsTo('App\Models\Facult');
   }
 
+  public function livers()
+  {
+    return $this->hasMany('App\Models\Liver');
+  }
 }

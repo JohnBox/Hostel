@@ -1,16 +1,17 @@
 @extends('liver.master')
 
 @section('content')
-  <div class="panel panel-default">
+  <div class="panel panel-default" style="overflow: hidden;">
     <div class="panel-heading">Проживаючі</div>
     <div class="panel-body">
       <ul id="tabs" class="nav nav-tabs">
         <li role="presentation" class="active"><a class="0">Обовязкові дані</a></li>
-        <li role="presentation" class="disabled"><a class="1">Адреса проживання</a></li>
-        <li role="presentation" class="disabled"><a class="2">Паспортні дані</a></li>
-        <li role="presentation" class="disabled"><a class="3">Контакти</a></li>
+        <li role="presentation"><a class="1">Адреса проживання</a></li>
+        <li role="presentation"><a class="2">Паспортні дані</a></li>
+        <li role="presentation"><a class="3">Контакти</a></li>
       </ul>
       <form method="POST" action="{{ url('/livers/create-liver') }}" onsubmit="return false;">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <br/>
         <div class="t">
           <div class="photo">
@@ -18,32 +19,36 @@
           </div>
           <div class="form-group col-md-8">
             <label for="last_name">Прізвище</label>
-            <input type="text" class="form-control" id="last_name">
+            <input type="text" class="form-control" id="last_name" name="last_name">
           </div>
           <div class="form-group col-md-8">
             <label for="first_name">Ім’я</label>
-            <input type="text" class="form-control" id="first_name">
+            <input type="text" class="form-control" id="first_name" name="first_name">
           </div>
           <div class="form-group col-md-8">
             <label for="parent_name">По батькові</label>
-            <input type="text" class="form-control" id="parent_name">
+            <input type="text" class="form-control" id="parent_name" name="parent_name">
           </div>
-          <div class="form-group col-md-4">
+          <div class="form-group col-md-8">
+            <label for="birth">Дата народження</label>
+            <input type="date" class="form-control" id="birth" name="birth" placeholder="дд.мм.рр">
+          </div>
+          <div class="form-group col-md-5">
             <label for="sex">Стать</label>
             <div class="radio">
               <label>
-                <input type="radio" name="sex" id="sex" value="m">
+                <input type="radio" name="sex" id="sex" value="2">
                 Чоловіча
               </label>
             </div>
             <div class="radio">
               <label>
-                <input type="radio" name="sex" id="sex" value="w">
+                <input type="radio" name="sex" id="sex" value="1">
                 Жіноча
               </label>
             </div>
           </div>
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-7" style="height: 97px;">
             <div class="checkbox">
               <label>
                 <input type="checkbox" name="student" id="student">Студент
@@ -51,22 +56,82 @@
             </div>
           </div>
           <div id="st" class="hidden">
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-6">
               <label for="facult">Факультет</label>
               <select class="form-control" name="facult">
+                <option value="0">-</option>
                 @foreach($faculties as $facult)
                   <option value="{{ $facult->id }}">{{ $facult->name }}</option>
                 @endforeach
               </select>
             </div>
-            <div class="form-group col-md-12">
+            <div class="form-group col-md-6">
               <label for="group">Група</label>
               <select class="form-control" name="group">
+                <option value="0">-</option>
                 @foreach($groups as $group)
                   <option value="{{ $group->id }}">{{ $group->facult->short_name }}-{{ $group->course }}{{ $group->number }}</option>
                 @endforeach
               </select>
             </div>
+          </div>
+        </div>
+        <div class="t hidden">
+          <div class="form-group col-md-6">
+            <label for="country">Країна</label>
+            <input type="text" class="form-control" name="country">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="canton">Область</label>
+            <input type="text" class="form-control" name="canton">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="city">Місто/Село</label>
+            <input type="text" class="form-control" name="city">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="street">Вулиця</label>
+            <input type="text" class="form-control" name="street">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="house">Будинок</label>
+            <input type="text" class="form-control" name="house">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="apart">Квартира</label>
+            <input type="text" class="form-control" name="apart">
+          </div>
+        </div>
+        <div class="t hidden">
+          <div class="form-group col-md-6">
+            <label for="series">Серія</label>
+            <input type="text" class="form-control" name="series">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="number">Номер</label>
+            <input type="text" class="form-control" name="number">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="which">Ким виданий</label>
+            <input type="text" class="form-control" name="which">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="when">Коли виданий</label>
+            <input type="date" class="form-control" name="when" placeholder="дд.мм.рр">
+          </div>
+        </div>
+        <div class="t hidden">
+          <div class="form-group col-md-6">
+            <label for="tel1">Телефон №1</label>
+            <input type="tel" class="form-control" name="tel1">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="tel2">Телефон №2</label>
+            <input type="tel" class="form-control" name="tel2">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="tel3">Телефон №3</label>
+            <input type="tel" class="form-control" name="tel3">
           </div>
         </div>
         <div class="form-group col-md-12">
@@ -79,53 +144,38 @@
 
 @section('script')
   <script>
+    var tabs = document.getElementById('tabs').getElementsByTagName('li');
+    var divs = document.getElementsByClassName('t');
+    for (var i=0;i<tabs.length;i++) {
+      tabs[i].onclick = function (e) {
+        for (var i=0;i<tabs.length;i++) {
+          tabs[i].classList.remove('active');
+          divs[i].classList.add('hidden');
+        }
+        var curr = parseInt(e.target.className);
+        tabs[curr].classList.add('active');
+        divs[curr].classList.remove('hidden');
+        if (curr == tabs.length-1) {
+          b.innerHTML = 'Заселити';
+        } else {
+          b.innerHTML = 'Далі';
+        }
+      }
+    }
     var form = document.forms[0];
     var b = document.getElementById('submit');
     b.onclick = function (e) {
-      var that = this;
       if (this.innerHTML === 'Заселити') {
         form.onsubmit = null;
         form.submit();
-      }
-      var tabs = document.getElementById('tabs').getElementsByTagName('li');
-      var divs = document.getElementsByClassName('t');
-      var currtab = document.getElementById('tabs').getElementsByClassName('active')[0];
-      var curr = parseInt(currtab.getElementsByTagName('a')[0].className);
-      divs[curr].classList.add('hidden');
-      currtab.onclick = function (e) {
-        var curr = parseInt(e.target.className);
-        for (var i=0;i<tabs.length;i++) {
-          if (i == curr) {
-            tabs[i].classList.add('active');
-          } else {
-            tabs[i].classList.remove('active');
-          }
-        }
-        for (i=0;i<divs.length;i++) {
-          if (i == curr) {
-            divs[i].classList.remove('hidden');
-          } else {
-            divs[i].classList.add('hidden');
-          }
-        }
-        if (curr == tabs.length-1) {
-          that.innerHTML = 'Заселити';
-        } else {
-          that.innerHTML = 'Далі';
-        }
-      };
-      currtab.classList.remove('active');
-      var next = curr+1;
-      divs[next].classList.remove('hidden');
-      var nexttab = tabs[next];
-      nexttab.onclick = currtab.onclick;
-      nexttab.classList.remove('disabled');
-      nexttab.classList.add('active');
-      if (next == tabs.length-1) {
-        this.innerHTML = 'Заселити';
       } else {
-        this.innerHTML = 'Далі';
+        form.onsubmit = function () {
+          return false;
+        }
       }
+      var currtab = document.getElementById('tabs').getElementsByClassName('active')[0];
+      var next = parseInt(currtab.getElementsByTagName('a')[0].className)+1;
+      tabs[next].onclick({target: tabs[next].getElementsByTagName('a')[0]});
     };
     var s = document.getElementById('student');
     var st = document.getElementById('st');

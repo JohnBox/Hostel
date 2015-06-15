@@ -15,21 +15,38 @@
         <br/>
         <table class="table table-striped">
           <tr>
-            <th>Факультет</th>
-            <th>Курс</th>
-            <th>Номер</th>
-            <th>Наставник</th>
-            <th>Телефон</th>
+            <th>Прізвище Ім’я По батькові</th>
+            <th>Дата народження</th>
+            <th>Стать</th>
+            <th>Студент</th>
+            <th>Група</th>
+            <th>Кімната</th>
             <th></th>
             <th></th>
           </tr>
           @foreach($livers as $liver)
             <tr>
-              <td>{{ $liver->name }}</td>
-              <td>{{ $liver->course }}</td>
-              <td>{{ $liver->number }}</td>
-              <td>{{ $liver->leader }}</td>
-              <td>{{ $liver->phone }}</td>
+              <td>
+                <a href="{{ url('livers/show-liver') }}/{{ $liver->id }}">
+                  {{ $liver->last_name }} {{ $liver->first_name }} {{ $liver->parent_name }}
+                </a>
+              </td>
+              <td>{{ $liver->birth }}</td>
+              <td>@if($liver->sex == 1) Ж @else Ч @endif</td>
+              <td><input type="checkbox" @if($liver->student) checked @endif disabled style="cursor: text"/></td>
+
+              <td>
+                @if($liver->student)
+                  {{ $liver->group->facult->short_name }}-{{ $liver->group->course }}{{ $liver->group->number }}</td>
+                @else
+                  -
+                @endif
+              <td>
+                @if($liver->room)
+                  {{ $liver->room->number }}
+                @else
+                  <a type="button" class="btn btn-xs btn-default" href="{{ url('livers/settle') }}/{{ $liver->id }}">Заселити</a>
+                @endif</td>
               <td><a href="{{ url('liver/edit-liver') }}/{{ $liver->id }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
               <td><a href="{{ url('liver/delete-liver') }}/{{ $liver->id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
             </tr>
