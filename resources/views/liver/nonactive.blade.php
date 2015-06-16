@@ -7,7 +7,8 @@
         <ul class="nav nav-tabs">
           <li role="presentation"><a href="{{ url('/livers') }}">Всі</a></li>
           <li role="presentation"><a href="{{ url('/livers/active') }}">Заселені</a></li>
-          <li role="presentation" class="active"><a>Виселені</a></li>
+          <li role="presentation" class="active"><a>Незаселені</a></li>
+          <li role="presentation"><a href="{{ url('/livers/removed') }}">Виселені</a></li>
         </ul>
         <br/>
         <a type="button" class="btn btn-sm btn-default" href="{{ url('liver/create-liver') }}">Створити новий</a>

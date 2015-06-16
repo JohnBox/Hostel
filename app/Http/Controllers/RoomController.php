@@ -5,13 +5,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Room;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class RoomController extends Controller
 {
 
   public function getIndex()
   {
-    return view('room.index', ['rooms' => Room::where('hostel_id', '=', Auth::user()->hostel->id)->get()]);
+    $rooms = Room::where('hostel_id', '=', Auth::user()->hostel->id)->get();
+    return view('room.index', ['rooms' => $rooms]);
   }
 
   public function getShow($id)

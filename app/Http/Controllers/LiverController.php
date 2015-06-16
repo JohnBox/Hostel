@@ -25,19 +25,19 @@ class LiverController extends Controller {
   {
     return view('liver.active', ['livers' => Liver::all()]);
   }
-  public function getDeactive()
+  public function getNonactive()
   {
-    return view('liver.deactive', ['livers' => Liver::all()]);
+    return view('liver.nonactive', ['livers' => Liver::all()]);
   }
-  public function getShow($id)
+  public function getRemoved()
   {
-    return view('room.show', ['room' => Room::find($id)]);
+    return view('liver.removed', ['livers' => Liver::all()]);
   }
-  public function getCreateLiver()
+  public function getCreate()
   {
-    return view('liver.create-liver', ['faculties' => Facult::all(), 'groups' => Group::all()]);
+    return view('liver.create', ['faculties' => Facult::all(), 'groups' => Group::all()]);
   }
-  public function postCreateLiver(Request $req)
+  public function postCreate(Request $req)
   {
     $l = Liver::create([
       'last_name' => $req->input('last_name'),
@@ -45,31 +45,63 @@ class LiverController extends Controller {
       'parent_name' => $req->input('parent_name'),
       'birth' => $req->input('birth'),
       'sex' => $req->input('sex'),
-      'student' => $req->input('student'),
+      'student' => ($req->input('student') == 'on')?true:false,
       'group_id' => $req->input('group'),
-      'country' => $req->input('country') || '',
-      'canton' => $req->input('canton') || '',
-      'city' => $req->input('city') || '',
-      'street' => $req->input('street') || '',
-      'house' => $req->input('house') || '',
-      'apart' => $req->input('apart') || '',
-      'series' => $req->input('series') || '',
-      'number' => $req->input('number') || '',
+      'country' => $req->input('country'),
+      'canton' => $req->input('canton'),
+      'city' => $req->input('city'),
+      'street' => $req->input('street'),
+      'house' => $req->input('house'),
+      'apart' => $req->input('apart'),
+      'series' => $req->input('series'),
+      'number' => $req->input('number'),
       'which' => $req->input('which'),
-      'when' => $req->input('when') || '',
-      'tel1' => $req->input('tel1') || '',
-      'tel2' => $req->input('tel2') || '',
-      'tel3' => $req->input('tel3') || ''
+      'when' => $req->input('when'),
+      'tel1' => $req->input('tel1'),
+      'tel2' => $req->input('tel2'),
+      'tel3' => $req->input('tel3')
     ]);
     return Redirect::to('/livers/settle/'.$l->id);
   }
-  public function getShowLiver($id)
+  public function getEdit($id)
   {
+    return view('liver.edit', ['liver' => Liver::find($id), 'groups' => Group::all(), 'faculties' => Facult::all()]);
+  }
+  public function postEdit(Request $req)
+  {
+    $liver = Liver::find($req->input('id'));
 
+    return Redirect::to('/livers');
+  }
+  public function getDelete($id)
+  {
+    Liver::destroy($id);
+    return Redirect::to('/livers');
+  }
+  public function getShow($id)
+  {
+    $liver = Liver::find($id);
+    return view('liver.show', ['liver' => $liver]);
   }
   public function getSettle($id)
   {
-    return view('liver.settle', ['rooms' => Room::all(), 'liver' => Liver::find($id)]);
+    $liver = Liver::find($id);
+    $rooms = Room::all();
+    foreach ($rooms as &$room)
+    {
+      foreach ($room->livers as $l)
+      {
+        if ($l->sex != $liver->sex)
+        {
+          $room = null;
+          break;
+        }
+
+      }
+
+    }
+
+    return view('liver.settle', ['rooms' => $rooms , 'liver' => $liver ]);
   }
   public function postSettle(Request $req)
   {
@@ -78,6 +110,13 @@ class LiverController extends Controller {
     $liver->room_id = $room->id;
     $liver->save();
     $room->livers()->save($liver);
+    return Redirect::to('/livers');
+  }
+  public function getRemove($id)
+  {
+    $liver = Liver::find($id);
+    $liver->room_id = null;
+    $liver->save();
     return Redirect::to('/livers');
   }
 }

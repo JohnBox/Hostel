@@ -321,5 +321,9 @@
   width: 280px;
   height: 280px;
 }
+form.show input[disabled],
+form.show select[disabled] {
+  cursor: text;
+}
 
 /*# sourceMappingURL=app.css.map */

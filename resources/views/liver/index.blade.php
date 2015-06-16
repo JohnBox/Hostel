@@ -7,10 +7,11 @@
         <ul class="nav nav-tabs">
           <li role="presentation" class="active"><a>Всі</a></li>
           <li role="presentation"><a href="{{ url('/livers/active') }}">Заселені</a></li>
-          <li role="presentation"><a href="{{ url('/livers/deative') }}">Виселені</a></li>
+          <li role="presentation"><a href="{{ url('/livers/nonactive') }}">Незаселені</a></li>
+          <li role="presentation"><a href="{{ url('/livers/removed') }}">Виселені</a></li>
         </ul>
         <br/>
-        <a type="button" class="btn btn-sm btn-default" href="{{ url('livers/create-liver') }}">Створити новий</a>
+        <a type="button" class="btn btn-sm btn-default" href="{{ url('/livers/create') }}">Створити новий</a>
         <br/>
         <br/>
         <table class="table table-striped">
@@ -27,12 +28,12 @@
           @foreach($livers as $liver)
             <tr>
               <td>
-                <a href="{{ url('livers/show-liver') }}/{{ $liver->id }}">
+                <a href="{{ url('/livers/show') }}/{{ $liver->id }}">
                   {{ $liver->last_name }} {{ $liver->first_name }} {{ $liver->parent_name }}
                 </a>
               </td>
               <td>{{ $liver->birth }}</td>
-              <td>@if($liver->sex == 1) Ж @else Ч @endif</td>
+              <td>@if($liver->sex) Ч @else Ж @endif</td>
               <td><input type="checkbox" @if($liver->student) checked @endif disabled style="cursor: text"/></td>
 
               <td>
@@ -47,8 +48,8 @@
                 @else
                   <a type="button" class="btn btn-xs btn-default" href="{{ url('livers/settle') }}/{{ $liver->id }}">Заселити</a>
                 @endif</td>
-              <td><a href="{{ url('liver/edit-liver') }}/{{ $liver->id }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
-              <td><a href="{{ url('liver/delete-liver') }}/{{ $liver->id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+              <td><a href="{{ url('/livers/edit') }}/{{ $liver->id }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
+              <td><a href="{{ url('/livers/delete') }}/{{ $liver->id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
             </tr>
           @endforeach
         </table>

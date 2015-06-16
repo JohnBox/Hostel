@@ -11,7 +11,7 @@ class Liver extends Model {
     'country','canton','city','street','house','apart',
     'series','number','which','when',
     'tel1','tel2','tel3',
-    'room_id'
+    'room_id','balance'
   ];
 
   public $timestamps = false;
@@ -25,4 +25,9 @@ class Liver extends Model {
   {
     return $this->belongsTo('App\Models\Room');
   }
+
+  public function scopeSex($query)
+  {
+  }
+
 }

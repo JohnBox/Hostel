@@ -10,14 +10,14 @@
             <li>
               <a class='normal' href="{{ url('/rooms/show') }}/{{ $room->id }}">
                 <span class="number">{{ $room->number }}<br/>
-                  <span class="count">{{ $room->livers()->count() }}/{{ $room->liver_max }}</span>
+                  <span class="count">{{ $room->livers->count() }}/{{ $room->liver_max }}</span>
                 </span>
               </a>
               <div class='info'>
                 <h3>
                   @foreach($room->livers as $l)
-                    {{ $l->last_name }} {{ $l->first_name }}
-                    {{ $l->group->facult->short_name }}-{{ $l->group->course }}{{ $l->group->number }}
+                    {{--{{ $l->last_name }} {{ $l->first_name }}--}}
+                    {{--{{ $l->group->facult->short_name }}-{{ $l->group->course }}{{ $l->group->number }}--}}
                     <br/>
                   @endforeach
                 </h3>

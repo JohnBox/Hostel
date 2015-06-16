@@ -10,8 +10,7 @@
         <li role="presentation"><a class="2">Паспортні дані</a></li>
         <li role="presentation"><a class="3">Контакти</a></li>
       </ul>
-      <form method="POST" action="{{ url('/livers/create-liver') }}" onsubmit="return false;">
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+      <form class="show" onsubmit="return false;">
         <br/>
         <div class="t">
           <div class="photo">
@@ -19,123 +18,114 @@
           </div>
           <div class="form-group col-md-8">
             <label for="last_name">Прізвище</label>
-            <input type="text" class="form-control" id="last_name" name="last_name">
+            <input type="text" class="form-control" id="last_name" value="{{ $liver->last_name }}" disabled>
           </div>
           <div class="form-group col-md-8">
             <label for="first_name">Ім’я</label>
-            <input type="text" class="form-control" id="first_name" name="first_name">
+            <input type="text" class="form-control" id="first_name" value="{{ $liver->first_name }}" disabled>
           </div>
           <div class="form-group col-md-8">
             <label for="parent_name">По батькові</label>
-            <input type="text" class="form-control" id="parent_name" name="parent_name">
+            <input type="text" class="form-control" id="parent_name" value="{{ $liver->parent_name }}" disabled>
           </div>
           <div class="form-group col-md-8">
             <label for="birth">Дата народження</label>
-            <input type="date" class="form-control" id="birth" name="birth" placeholder="дд.мм.рр">
+            <input type="date" class="form-control" id="birth" name="birth" value="{{ $liver->birth }}" disabled>
           </div>
           <div class="form-group col-md-5">
             <label for="sex">Стать</label>
             <div class="radio">
               <label>
-                <input type="radio" name="sex" id="sex" value="2">
-                Чоловіча
-              </label>
-            </div>
-            <div class="radio">
-              <label>
-                <input type="radio" name="sex" id="sex" value="1">
-                Жіноча
+                <input type="radio" name="sex" id="sex" disabled checked>
+                @if($liver->sex) Чоловіча @else Жіноча @endif
               </label>
             </div>
           </div>
           <div class="form-group col-md-7" style="height: 97px;">
             <div class="checkbox">
               <label>
-                <input type="checkbox" name="student" id="student">Студент
+                <input type="checkbox" id="student" @if ($liver->student) checked @endif disabled>Студент
               </label>
             </div>
           </div>
-          <div id="st" class="hidden">
+          @if($liver->student)
+          <div id="st">
             <div class="form-group col-md-6">
               <label for="facult">Факультет</label>
-              <select class="form-control" name="facult">
-                <option value="0">-</option>
-                @foreach($faculties as $facult)
-                  <option value="{{ $facult->id }}">{{ $facult->name }}</option>
-                @endforeach
+              <select class="form-control" name="facult" disabled>
+                <option value="">{{ $liver->group->facult->name }}</option>
               </select>
             </div>
             <div class="form-group col-md-6">
               <label for="group">Група</label>
-              <select class="form-control" name="group">
-                <option value="0">-</option>
-                @foreach($groups as $group)
-                  <option value="{{ $group->id }}">{{ $group->facult->short_name }}-{{ $group->course }}{{ $group->number }}</option>
-                @endforeach
+              <select class="form-control" name="group" disabled>
+                <option value="">{{ $liver->group->facult->short_name }}-{{ $liver->group->course }}{{ $liver->group->number }}</option>
               </select>
             </div>
           </div>
+          @endif
         </div>
         <div class="t hidden">
           <div class="form-group col-md-6">
             <label for="country">Країна</label>
-            <input type="text" class="form-control" name="country">
+            <input type="text" class="form-control" name="country" value="{{ $liver->country }}" disabled>
           </div>
           <div class="form-group col-md-6">
             <label for="canton">Область</label>
-            <input type="text" class="form-control" name="canton">
+            <input type="text" class="form-control" name="canton" value="{{ $liver->canton }}" disabled>
           </div>
           <div class="form-group col-md-6">
             <label for="city">Місто/Село</label>
-            <input type="text" class="form-control" name="city">
+            <input type="text" class="form-control" name="city" value="{{ $liver->city }}" disabled>
           </div>
           <div class="form-group col-md-6">
             <label for="street">Вулиця</label>
-            <input type="text" class="form-control" name="street">
+            <input type="text" class="form-control" name="street" value="{{ $liver->street }}" disabled>
           </div>
           <div class="form-group col-md-6">
             <label for="house">Будинок</label>
-            <input type="text" class="form-control" name="house">
+            <input type="text" class="form-control" name="house" value="{{ $liver->house }}" disabled>
           </div>
           <div class="form-group col-md-6">
             <label for="apart">Квартира</label>
-            <input type="text" class="form-control" name="apart">
+            <input type="text" class="form-control" name="apart" value="{{ $liver->apart }}" disabled>
           </div>
         </div>
         <div class="t hidden">
           <div class="form-group col-md-6">
             <label for="series">Серія</label>
-            <input type="text" class="form-control" name="series">
+            <input type="text" class="form-control" name="series" value="{{ $liver->series }}" disabled>
           </div>
           <div class="form-group col-md-6">
             <label for="number">Номер</label>
-            <input type="text" class="form-control" name="number">
+            <input type="text" class="form-control" name="number" value="{{ $liver->number }}" disabled>
           </div>
           <div class="form-group col-md-6">
             <label for="which">Ким виданий</label>
-            <input type="text" class="form-control" name="which">
+            <input type="text" class="form-control" name="which" value="{{ $liver->which }}" disabled>
           </div>
           <div class="form-group col-md-6">
             <label for="when">Коли виданий</label>
-            <input type="date" class="form-control" name="when" placeholder="дд.мм.рр">
+            <input type="date" class="form-control" name="when" value="{{ $liver->when }}" disabled>
           </div>
         </div>
         <div class="t hidden">
           <div class="form-group col-md-6">
             <label for="tel1">Телефон №1</label>
-            <input type="tel" class="form-control" name="tel1">
+            <input type="tel" class="form-control" name="tel1" value="{{ $liver->tel1 }}" disabled>
           </div>
           <div class="form-group col-md-6">
             <label for="tel2">Телефон №2</label>
-            <input type="tel" class="form-control" name="tel2">
+            <input type="tel" class="form-control" name="tel2" value="{{ $liver->tel2 }}" disabled>
           </div>
           <div class="form-group col-md-6">
             <label for="tel3">Телефон №3</label>
-            <input type="tel" class="form-control" name="tel3">
+            <input type="tel" class="form-control" name="tel3" value="{{ $liver->tel3 }}" disabled>
           </div>
         </div>
         <div class="form-group col-md-12">
-          <button id="submit" class="btn btn-default">Далі</button>
+          <a href="{{ url('/livers/settle') }}/{{ $liver->id }}" id="settle" class="btn btn-default">Переселити</a>
+          <a href="{{ url('/livers/remove') }}/{{ $liver->id }}" id="remove" class="btn btn-default" style="color: #f66">Виселити</a>
         </div>
       </form>
     </div>
@@ -155,37 +145,31 @@
         var curr = parseInt(e.target.className);
         tabs[curr].classList.add('active');
         divs[curr].classList.remove('hidden');
-        if (curr == tabs.length-1) {
-          b.innerHTML = 'Заселити';
-        } else {
-          b.innerHTML = 'Далі';
-        }
       }
     }
     var form = document.forms[0];
     var b = document.getElementById('submit');
     b.onclick = function (e) {
-      if (this.innerHTML === 'Заселити') {
-        form.onsubmit = null;
-        form.submit();
-      } else {
-        form.onsubmit = function () {
-          return false;
-        }
-      }
       var currtab = document.getElementById('tabs').getElementsByClassName('active')[0];
       var next = parseInt(currtab.getElementsByTagName('a')[0].className)+1;
       tabs[next].onclick({target: tabs[next].getElementsByTagName('a')[0]});
     };
-    var s = document.getElementById('student');
-    var st = document.getElementById('st');
-    s.onchange = function (e) {
+
+    var student = document.getElementById('student');
+    var div = document.getElementById('st');
+    student.onchange = function (e) {
       if (e.target.checked) {
-        st.classList.remove('hidden');
+        div.classList.remove('hidden');
       } else {
-        st.classList.add('hidden');
+        div.classList.add('hidden');
       }
+    };
+    if (student.checked) {
+      div.classList.remove('hidden');
+    } else {
+      div.classList.add('hidden');
     }
+
   </script>
 @endsection
 

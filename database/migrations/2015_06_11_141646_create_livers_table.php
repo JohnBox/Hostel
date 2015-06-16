@@ -19,7 +19,7 @@ class CreateLiversTable extends Migration {
       $table->string('first_name');
       $table->string('parent_name');
       $table->date('birth');
-      $table->integer('sex');
+      $table->boolean('sex');
       $table->boolean('student');
       $table->integer('group_id');
       $table->string('country');
@@ -36,6 +36,7 @@ class CreateLiversTable extends Migration {
       $table->string('tel2');
       $table->string('tel3');
       $table->integer('room_id');
+      $table->float('balance');
 		});
 	}
 
