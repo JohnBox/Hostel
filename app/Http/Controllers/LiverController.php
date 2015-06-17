@@ -46,7 +46,7 @@ class LiverController extends Controller {
       'birth' => $req->input('birth'),
       'sex' => $req->input('sex'),
       'student' => ($req->input('student') == 'on')?true:false,
-      'group_id' => $req->input('group'),
+      'group_id' => ($req->input('student') == 'on')?$req->input('group'):0,
       'country' => $req->input('country'),
       'canton' => $req->input('canton'),
       'city' => $req->input('city'),
@@ -70,7 +70,27 @@ class LiverController extends Controller {
   public function postEdit(Request $req)
   {
     $liver = Liver::find($req->input('id'));
-
+    $liver->last_name = $req->input('last_name');
+    $liver->first_name = $req->input('first_name');
+    $liver->parent_name = $req->input('parent_name');
+    $liver->birth = $req->input('birth');
+    $liver->sex = $req->input('sex');
+    $liver->student = ($req->input('student') == 'on')?true:false;
+    $liver->group_id = ($req->input('student') == 'on')?$req->input('group'):0;
+    $liver->country = $req->input('country');
+    $liver->canton = $req->input('canton');
+    $liver->city = $req->input('city');
+    $liver->street = $req->input('street');
+    $liver->house = $req->input('house');
+    $liver->apart = $req->input('apart');
+    $liver->series = $req->input('series');
+    $liver->number = $req->input('number');
+    $liver->which = $req->input('which');
+    $liver->when = $req->input('when');
+    $liver->tel1 = $req->input('tel1');
+    $liver->tel2 = $req->input('tel2');
+    $liver->tel3 = $req->input('tel3');
+    $liver->save();
     return Redirect::to('/livers');
   }
   public function getDelete($id)

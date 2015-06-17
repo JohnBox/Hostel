@@ -4,9 +4,36 @@
   <div class="panel panel-default">
     <div class="panel-heading">Кімната #{{ $room->number }}</div>
     <div class="panel-body">
-      @foreach($room->livers as $l)
-        {{ $l }}
-      @endforeach
+      <table class="table table-striped">
+        <tr>
+          <th>Прізвище Ім’я По батькові</th>
+          <th>Дата народження</th>
+          <th>Стать</th>
+          <th>Студент</th>
+          <th>Група</th>
+          <th>Баланс</th>
+        </tr>
+        @foreach($room->livers as $liver)
+          <tr>
+            <td>
+              <a href="{{ url('/livers/show') }}/{{ $liver->id }}">
+                {{ $liver->last_name }} {{ $liver->first_name }} {{ $liver->parent_name }}
+              </a>
+            </td>
+            <td>{{ $liver->birth }}</td>
+            <td>@if($liver->sex) Ч @else Ж @endif</td>
+            <td><input type="checkbox" @if($liver->student) checked @endif disabled style="cursor: text"/></td>
+
+            <td>
+              @if($liver->student)
+                {{ $liver->group->facult->short_name }}-{{ $liver->group->course }}{{ $liver->group->number }}</td>
+            @else
+              -
+            @endif
+            <td>{{ $liver->balance }}</td>
+          </tr>
+        @endforeach
+      </table>
     </div>
   </div>
 @endsection

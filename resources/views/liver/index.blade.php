@@ -22,6 +22,7 @@
             <th>Студент</th>
             <th>Група</th>
             <th>Кімната</th>
+            <th>Баланс</th>
             <th></th>
             <th></th>
           </tr>
@@ -48,6 +49,7 @@
                 @else
                   <a type="button" class="btn btn-xs btn-default" href="{{ url('livers/settle') }}/{{ $liver->id }}">Заселити</a>
                 @endif</td>
+              <td>{{ $liver->balance }}</td>
               <td><a href="{{ url('/livers/edit') }}/{{ $liver->id }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
               <td><a href="{{ url('/livers/delete') }}/{{ $liver->id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
             </tr>
