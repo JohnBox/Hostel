@@ -154,7 +154,7 @@ class SettingController extends Controller
   public function postCreateGroup(Request $req)
   {
     Group::create([
-      'number' => $req->input('number'),
+      'number' => (int)$req->input('number')<10?'0'.$req->input('number'):$req->input('number'),
       'course' => $req->input('course'),
       'leader' => $req->input('leader'),
       'phone' => $req->input('phone'),
@@ -169,7 +169,7 @@ class SettingController extends Controller
   public function postEditGroup(Request $req)
   {
     $group = Group::find($req->input('id'));
-    $group->number = $req->input('number');
+    $group->number =(int)$req->input('number')<10?'0'.$req->input('number'):$req->input('number');
     $group->course = $req->input('course');
     $group->leader = $req->input('leader');
     $group->facult_id = $req->input('facult');

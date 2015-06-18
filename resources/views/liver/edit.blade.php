@@ -2,7 +2,12 @@
 
 @section('content')
   <div class="panel panel-default" style="overflow: hidden;">
-    <div class="panel-heading">Проживаючі</div>
+    <div class="panel-heading">
+      <ol class="breadcrumb">
+        <li><a href="{{ url('/livers') }}">Проживаючі</a></li>
+        <li class="active">Редагування</li>
+      </ol>
+    </div>
     <div class="panel-body">
       <ul id="tabs" class="nav nav-tabs">
         <li role="presentation" class="active"><a class="0">Обовязкові дані</a></li>
@@ -15,51 +20,52 @@
         <input type="hidden" name="id" value="{{ $liver->id }}">
         <br/>
         <div class="t">
-          <div class="photo">
-            <img src="https://habrastorage.org/files/d4f/59f/6b9/d4f59f6b94e14c1ebd34581c2731fd08.jpg" alt=""/>
-          </div>
-          <div class="form-group col-md-8">
+          <div class="form-group col-md-6">
             <label for="last_name">Прізвище</label>
             <input type="text" class="form-control" id="last_name" name="last_name" value="{{ $liver->last_name }}">
           </div>
-          <div class="form-group col-md-8">
+          <div class="form-group col-md-6">
             <label for="first_name">Ім’я</label>
             <input type="text" class="form-control" id="first_name" name="first_name" value="{{ $liver->first_name }}">
           </div>
-          <div class="form-group col-md-8">
+          <div class="form-group col-md-6">
             <label for="parent_name">По батькові</label>
             <input type="text" class="form-control" id="parent_name" name="parent_name" value="{{ $liver->parent_name }}">
           </div>
-          <div class="form-group col-md-8">
+          <div class="form-group col-md-6">
             <label for="birth">Дата народження</label>
             <input type="date" class="form-control" id="birth" name="birth" placeholder="дд.мм.рр" value="{{ $liver->birth }}">
           </div>
-          <div class="form-group col-md-5">
-            <label for="sex">Стать</label>
-            <div class="radio">
-              <label>
-                <input type="radio" name="sex" id="sex" value="1" @if($liver->sex) checked @endif>
-                Чоловіча
-              </label>
+          <div class="form-group col-md-6">
+            <div class="col-md-7">
+              <div class="avatar"><img src="{{ asset('/image/php7.jpeg') }}" alt=""/></div>
             </div>
-            <div class="radio">
-              <label>
-                <input type="radio" name="sex" id="sex" value="0" @if(!$liver->sex) checked @endif>
-                Жіноча
-              </label>
+            <div class="col-md-5">
+              <label for="sex">Стать</label>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="sex" id="sex" value="1" @if($liver->sex) checked @endif>Чоловіча
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="sex" id="sex" value="0" @if(!$liver->sex) checked @endif>Жіноча
+                </label>
+              </div>
+              <br/>
+              <label for="student">&nbsp;</label>
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="student" id="student" @if ($liver->student) checked @endif>Студент
+                </label>
+              </div>
             </div>
           </div>
-          <div class="form-group col-md-7" style="height: 97px;">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" name="student" id="student" @if ($liver->student) checked @endif>Студент
-              </label>
-            </div>
-          </div>
+
           <div id="st" class="hidden">
             <div class="form-group col-md-6">
               <label for="facult">Факультет</label>
-              <select class="form-control" name="facult">
+              <select class="form-control" name="facult" id="facult">
                 <option value="0">-</option>
                 @foreach($faculties as $facult)
                   @if($liver->student)
@@ -72,7 +78,7 @@
             </div>
             <div class="form-group col-md-6">
               <label for="group">Група</label>
-              <select class="form-control" name="group">
+              <select class="form-control" name="group" id="group">
                 <option value="0">-</option>
                 @foreach($groups as $group)
                   @if($liver->student)
@@ -196,6 +202,26 @@
       }
     };
     student.onchange({target:student});
+    var f = document.getElementById('facult');
+    var gs = document.getElementById('group').getElementsByTagName('option');
+    gs = [].slice.call(gs);
+    f.onchange = function (e) {
+      if (parseInt(e.target.value)) {
+        e.target.getElementsByTagName('option')[0].classList.add('hhh');
+      }
+      for (var i=0;i<gs.length;i++)
+      {
+        if (parseInt(e.target.value) && parseInt(gs[i].className.substr(1)) !== parseInt(e.target.value))
+        {
+          gs[i].classList.add('hhh');
+        }
+        else {
+          gs[i].classList.remove('hhh');
+        }
+      }
+      gs[parseInt(e.target.value)].selected = 'selected';
+    };
+    f.onchange({target: f});
   </script>
 @endsection
 

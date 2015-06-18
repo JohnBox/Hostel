@@ -325,5 +325,27 @@ form.show input[disabled],
 form.show select[disabled] {
   cursor: text;
 }
+option.hhh {
+  display: none;
+}
+.form-control-static {
+  font-size: 1.2em;
+}
+.avatar {
+  height: 200px;
+  width: 200px;
+  margin-left: -16px;
+}
+.avatar img {
+  height: 200px;
+  width: 200px;
+}
+.breadcrumb {
+  padding: 0;
+  margin: 0;
+}
+.breadcrumb .active {
+  color: #000;
+}
 
 /*# sourceMappingURL=app.css.map */

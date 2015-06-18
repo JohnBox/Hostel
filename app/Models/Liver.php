@@ -26,6 +26,10 @@ class Liver extends Model {
     return $this->belongsTo('App\Models\Room');
   }
 
+  public function violations()
+  {
+    return $this->hasMany('App\Models\Violation');
+  }
   public function scopeSex($query)
   {
   }

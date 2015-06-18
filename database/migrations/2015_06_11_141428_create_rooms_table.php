@@ -16,7 +16,6 @@ class CreateRoomsTable extends Migration {
 		{
 			$table->increments('id');
       $table->string('number');
-      $table->integer('liver_count');
       $table->integer('liver_max');
       $table->integer('block');
       $table->float('area');

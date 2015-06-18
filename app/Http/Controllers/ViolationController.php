@@ -3,82 +3,65 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Models\Liver;
+use App\Models\Violation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redirect;
 
 class ViolationController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		//
-	}
+  public function getIndex()
+  {
+    return view('violation.index', ['violations' => Violation::all()]);
+  }
+  public function getCreate()
+  {
+    return view('violation.create',['livers' => Liver::all()]);
+  }
+  public function postCreate(Request $req)
+  {
+    $count = count($req->input('livers'));
+    $penalty = (float)$req->input('penalty')/$count;
+    foreach ($req->input('livers') as $l)
+    {
+      $liver = Liver::find($l);
+      $liver->balance -= $penalty;
+      $liver->save();
+      Violation::create([
+        'liver_id' => $liver->id,
+        'description' => $req->input('description'),
+        'date' => $req->input('date'),
+        'penalty' => $penalty,
+        'paid' => false
+      ]);
+    }
+    return Redirect::to('/violations');
+  }
+  public function getEdit($id)
+  {
+    return view('violation.edit', ['violation' => Violation::find($id)]);
+  }
+  public function postEdit(Request $req)
+  {
+    $violation = Violation::find($req->input('id'));
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
-
+    $violation->save();
+    return Redirect::to('/violations');
+  }
+  public function getDelete($id)
+  {
+    Violation::destroy($id);
+    return Redirect::to('/violations');
+  }
+  public function getPaid($id)
+  {
+    $v = Violation::find($id);
+    $l = Liver::find($v->liver_id);
+    $l->balance += $v->penalty;
+    $l->save();
+    $v->paid = true;
+    $v->save();
+    return Redirect::to('/violations');
+  }
 }
