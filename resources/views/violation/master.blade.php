@@ -9,7 +9,7 @@
       <li><a href="{{ url('/livers') }}">Проживаючі</a></li>
       <li><a href="{{ url('/rooms') }}">Кімнати</a></li>
       <li class="active"><a href="{{ url('/violations') }}">Порушення</a></li>
-      <li><a href="{{ url('/payments') }}">Розрахунки</a></li>
+      <li><a href="{{ url('/payments') }}">Виплати</a></li>
       <li><a href="{{ url('/reports') }}">Звіти</a></li>
       <li><a href="{{ url('/settings') }}">Налаштування</a></li>
     </ul>

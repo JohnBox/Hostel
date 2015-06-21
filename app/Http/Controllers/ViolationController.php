@@ -13,8 +13,14 @@ class ViolationController extends Controller {
 
   public function getIndex()
   {
-    return view('violation.index', ['violations' => Violation::all()]);
+    $violations = Violation::all();
+    foreach ($violations as &$v)
+    {
+      $v->date = implode('.', array_reverse(explode('-',$v->date)));
+    }
+    return view('violation.index', ['violations' => $violations]);
   }
+
   public function getCreate()
   {
     return view('violation.create',['livers' => Liver::all()]);
@@ -31,7 +37,7 @@ class ViolationController extends Controller {
       Violation::create([
         'liver_id' => $liver->id,
         'description' => $req->input('description'),
-        'date' => $req->input('date'),
+        'date' => date("Y-m-d", strtotime($req->input('date'))),
         'penalty' => $penalty,
         'paid' => false
       ]);
@@ -40,12 +46,20 @@ class ViolationController extends Controller {
   }
   public function getEdit($id)
   {
-    return view('violation.edit', ['violation' => Violation::find($id)]);
+    $v = Violation::find($id);
+    $v->date = implode('.', array_reverse(explode('-',$v->date)));
+    return view('violation.edit', ['violation' => $v]);
   }
   public function postEdit(Request $req)
   {
     $violation = Violation::find($req->input('id'));
-
+    $liver = Liver::find($violation->liver->id);
+    $liver->balance += ($violation->penalty-$req->input('penalty'));
+    $liver->save();
+    $violation->liver_id = $liver->id;
+    $violation->description = $req->input('description');
+    $violation->date = date("Y-m-d", strtotime($req->input('date')));
+    $violation->penalty = $req->input('penalty');
     $violation->save();
     return Redirect::to('/violations');
   }

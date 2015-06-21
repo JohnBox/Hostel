@@ -29,7 +29,7 @@
             <td>{{ $v->penalty }}</td>
             <td>
               @if($v->paid)
-                <input type="checkbox" checked disabled/>
+                <input type="checkbox" checked onclick="return false;"/>
               @else
                 <a class="btn btn-xs btn-default" href="{{ url('/violations/paid') }}/{{ $v->id }}">Сплатити</a>
               @endif

@@ -2,7 +2,12 @@
 
 @section('content')
   <div class="panel panel-default">
-    <div class="panel-heading">Кімната #{{ $room->number }}</div>
+    <div class="panel-heading">
+      <ol class="breadcrumb">
+        <li><a href="{{ url('/rooms') }}">Кімнати</a></li>
+        <li class="active">Кімната {{ $room->number }}</li>
+      </ol>
+    </div>
     <div class="panel-body">
       <table class="table table-striped">
         <tr>

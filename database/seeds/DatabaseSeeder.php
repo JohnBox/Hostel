@@ -70,7 +70,9 @@ class UserTableSeeder extends Seeder {
       'student' => true,
       'group_id' => 1,
       'balance' => 0,
-      'room_id' => 1
+      'room_id' => 1,
+      'active' => true,
+      'live_in' => date('Y-m-d')
     ]);
     Liver::create([
       'last_name' => 'Гончарук',
@@ -81,7 +83,9 @@ class UserTableSeeder extends Seeder {
       'student' => true,
       'group_id' => 2,
       'balance' => 0,
-      'room_id' => 1
+      'room_id' => 1,
+      'active' => true,
+      'live_in' => date('Y-m-d')
     ]);
     Liver::create([
       'last_name' => 'Степанчук',
@@ -92,7 +96,8 @@ class UserTableSeeder extends Seeder {
       'student' => false,
       'group_id' => 0,
       'balance' => 0,
-      'room_id' => 1
+      'room_id' => 1,
+      'active' => null
     ]);
   }
 }

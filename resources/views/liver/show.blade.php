@@ -121,6 +121,7 @@
         <div class="form-group col-md-12">
           <a href="{{ url('/livers/settle') }}/{{ $liver->id }}" id="settle" class="btn btn-default">Переселити</a>
           <a href="{{ url('/livers/remove') }}/{{ $liver->id }}" id="remove" class="btn btn-default" style="color: #f66">Виселити</a>
+          <a href="{{ url('/livers/money') }}/{{ $liver->id }}" id="remove" class="btn btn-default">Поповнити рахунок</a>
         </div>
       </form>
     </div>

@@ -2,7 +2,7 @@
 
 @section('content')
   <div class="panel panel-default">
-    <div class="panel-heading">Кімнати</div>
+    <div class="panel-heading">Проживаючі</div>
       <div class="panel-body">
         <ul class="nav nav-tabs">
           <li role="presentation"><a href="{{ url('/livers') }}">Всі</a></li>
@@ -11,32 +11,65 @@
           <li role="presentation"><a href="{{ url('/livers/removed') }}">Виселені</a></li>
         </ul>
         <br/>
-        <a type="button" class="btn btn-sm btn-default" href="{{ url('liver/create-liver') }}">Створити новий</a>
+        <a type="button" class="btn btn-sm btn-default" href="{{ url('/livers/create') }}">Створити новий</a>
         <br/>
         <br/>
         <table class="table table-striped">
           <tr>
-            <th>Факультет</th>
-            <th>Курс</th>
-            <th>Номер</th>
-            <th>Наставник</th>
-            <th>Телефон</th>
+            <th>Прізвище Ім’я По батькові</th>
+            <th>Дата народження</th>
+            <th>Стать</th>
+            <th>Студент</th>
+            <th>Група</th>
+            <th>Кімната</th>
+            <th>Баланс</th>
             <th></th>
             <th></th>
           </tr>
           @foreach($livers as $liver)
             <tr>
-              <td>{{ $liver->name }}</td>
-              <td>{{ $liver->course }}</td>
-              <td>{{ $liver->number }}</td>
-              <td>{{ $liver->leader }}</td>
-              <td>{{ $liver->phone }}</td>
-              <td><a href="{{ url('liver/edit-liver') }}/{{ $liver->id }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
-              <td><a href="{{ url('liver/delete-liver') }}/{{ $liver->id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
+              <td>
+                <a href="{{ url('/livers/show') }}/{{ $liver->id }}">
+                  {{ $liver->last_name }} {{ $liver->first_name }} {{ $liver->parent_name }}
+                </a>
+              </td>
+              <td>{{ $liver->birth }}</td>
+              <td>@if($liver->sex) Ч @else Ж @endif</td>
+              <td><input type="checkbox" @if($liver->student) checked @endif style="cursor: text" onclick="return false;"/></td>
+              <td>
+                @if($liver->student)
+                  {{ $liver->group->facult->short_name }}-{{ $liver->group->course }}{{ $liver->group->number }}
+                @else
+                  -
+                @endif
+              </td>
+              <td>{{ $liver->balance }}</td>
+              <td>
+                @if($liver->room)
+                  {{ $liver->room->number }}
+                @else
+                  <a type="button" class="btn btn-xs btn-default" href="{{ url('livers/settle') }}/{{ $liver->id }}">Заселити</a>
+                @endif
+              </td>
+              <td>
+                @if ($liver->live_in)
+                  {{ $liver->live_in }}
+                @else
+                  -
+                @endif
+              </td>
+              <td>
+                @if($liver->live_out)
+                  {{ $liver->live_out }}
+                @else
+                  -
+                @endif
+              </td>
+              <td><a href="{{ url('/livers/edit') }}/{{ $liver->id }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
+              <td><a href="{{ url('/livers/delete') }}/{{ $liver->id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
             </tr>
           @endforeach
         </table>
-      </div>
     </div>
   </div>
 @endsection

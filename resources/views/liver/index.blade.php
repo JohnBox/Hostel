@@ -20,9 +20,10 @@
             <th>Дата народження</th>
             <th>Стать</th>
             <th>Студент</th>
-            <th>Група</th>
-            <th>Кімната</th>
             <th>Баланс</th>
+            <th>Кімната</th>
+            <th>Заселення</th>
+            <th>Виселення</th>
             <th></th>
             <th></th>
           </tr>
@@ -35,14 +36,14 @@
               </td>
               <td>{{ $liver->birth }}</td>
               <td>@if($liver->sex) Ч @else Ж @endif</td>
-              <td><input type="checkbox" @if($liver->student) checked @endif disabled style="cursor: text"/></td>
-
-              <td>
+                <td>
                 @if($liver->student)
-                  {{ $liver->group->facult->short_name }}-{{ $liver->group->course }}{{ $liver->group->number }}</td>
+                  {{ $liver->group->facult->short_name }}-{{ $liver->group->course }}{{ $liver->group->number }}
                 @else
                   -
                 @endif
+              </td>
+              <td>{{ $liver->balance }}</td>
               <td>
                 @if($liver->room)
                   {{ $liver->room->number }}
@@ -50,7 +51,20 @@
                   <a type="button" class="btn btn-xs btn-default" href="{{ url('livers/settle') }}/{{ $liver->id }}">Заселити</a>
                 @endif
               </td>
-              <td>{{ $liver->balance }}</td>
+              <td>
+                @if ($liver->live_in)
+                  {{ $liver->live_in }}
+                @else
+                  -
+                @endif
+              </td>
+              <td>
+                @if($liver->live_out)
+                  {{ $liver->live_out }}
+                @else
+                  -
+                @endif
+              </td>
               <td><a href="{{ url('/livers/edit') }}/{{ $liver->id }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
               <td><a href="{{ url('/livers/delete') }}/{{ $liver->id }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
             </tr>
@@ -58,5 +72,4 @@
         </table>
       </div>
     </div>
-  </div>
 @endsection

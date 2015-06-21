@@ -3,82 +3,74 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Models\Liver;
 use Illuminate\Http\Request;
-
+use App\Models\Pay;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
+use App\Models\Room;
+use App\Models\Hostel;
 class PaymentController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		//
-	}
+  public function getIndex()
+  {
+    $bc = Room::all()->groupBy('block')->count();
+    $pays = DB::table('pays')->select(DB::raw('SUM(live_price) as live_price,
+     SUM(gas_price) as gas_price,
+     SUM(elec_price) as elec_price,
+     SUM(water_price) as water_price,
+     SUM(total) as total,
+     SUM(paid) as paid,
+     date'))->groupBy('date')->get();
+    return view('payment.index',['pays' => $pays, 'bc' => $bc]);
+  }
+  public function postCreate(Request $req)
+  {
+    $blc = [];
+    $bc = Room::all()->groupBy('block')->count();
+    for ($i=0;$i<$bc;$i++) {
+      $blc[$i]=0;
+    }
+    for ($i=0;$i<$bc;$i++) {
+      $block = Room::where('block', '=', $i)->get();
+      foreach ($block as $room) {
+        $blc[$i]+= $room->livers->count();
+      }
+    }
+    $h = Hostel::find(Auth::user()->hostel_id);
+    foreach (Liver::all() as &$l) {
+      $p = Pay::create([
+        'liver_id' => $l->id,
+        'date' => date("Y-m-d", strtotime($req->input('date'))),
+        'live_price' => $req->input('live_price'),
+        'gas_price' => ($req->input('gas_price')/$h->area)*$l->room->area,
+        'elec_price' => ($req->input('elec_price_'.$l->room->block)/$blc[$l->room->block]),
+        'water_price' => ($req->input('water_price_'.$l->room->block)/$blc[$l->room->block]),
+        'total' =>
+          ($req->input('gas_price')/$h->area)*$l->room->area+
+          ($req->input('elec_price_'.$l->room->block)/$blc[$l->room->block])+
+          ($req->input('water_price_'.$l->room->block)/$blc[$l->room->block])
+      ]);
+      $l->balance -= $p->total;
+      $l->save();
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
-	}
-
+    }
+    return Redirect::to('/payments');
+  }
+  public function getLivers($date)
+  {
+    $pays = Pay::where('date','=',$date)->get();
+    return view('payment.livers', ['pays' => $pays]);
+  }
+  public function getPaid($id)
+  {
+    $p = Pay::find($id);
+    $l = Liver::find($p->liver->id);
+    $l->balance += $p->total;
+    $l->save();
+    $p->paid = $p->total;
+    $p->save();
+    return Redirect::to('/payments/livers/'.$p->date);
+  }
 }

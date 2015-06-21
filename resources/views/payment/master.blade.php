@@ -7,9 +7,9 @@
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
     <ul class="nav navbar-nav">
       <li><a href="{{ url('/livers') }}">Проживаючі</a></li>
-      <li class="active"><a href="{{ url('/rooms') }}">Кімнати</a></li>
+      <li><a href="{{ url('/rooms') }}">Кімнати</a></li>
       <li><a href="{{ url('/violations') }}">Порушення</a></li>
-      <li><a href="{{ url('/payments') }}">Виплати</a></li>
+      <li class="active"><a href="{{ url('/payments') }}">Виплати</a></li>
       <li><a href="{{ url('/reports') }}">Звіти</a></li>
       <li><a href="{{ url('/settings') }}">Налаштування</a></li>
     </ul>

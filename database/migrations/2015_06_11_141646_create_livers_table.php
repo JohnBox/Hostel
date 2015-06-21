@@ -37,6 +37,9 @@ class CreateLiversTable extends Migration {
       $table->string('tel3');
       $table->integer('room_id');
       $table->float('balance');
+      $table->boolean('active')->nullable();
+      $table->date('live_in')->nullable();
+      $table->date('live_out')->nullable();
 		});
 	}
 

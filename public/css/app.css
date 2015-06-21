@@ -347,5 +347,8 @@ option.hhh {
 .breadcrumb .active {
   color: #000;
 }
+table input {
+  border: solid 3px #ff0000 !important;
+}
 
 /*# sourceMappingURL=app.css.map */

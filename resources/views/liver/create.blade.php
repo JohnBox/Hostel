@@ -21,19 +21,19 @@
         <div class="t">
           <div class="form-group col-md-6">
             <label for="last_name">Прізвище</label>
-            <input type="text" class="form-control" id="last_name" name="last_name">
+            <input type="text" class="form-control" id="last_name" name="last_name" required>
           </div>
           <div class="form-group col-md-6">
             <label for="first_name">Ім’я</label>
-            <input type="text" class="form-control" id="first_name" name="first_name">
+            <input type="text" class="form-control" id="first_name" name="first_name" required>
           </div>
           <div class="form-group col-md-6">
             <label for="parent_name">По батькові</label>
-            <input type="text" class="form-control" id="parent_name" name="parent_name">
+            <input type="text" class="form-control" id="parent_name" name="parent_name" required>
           </div>
           <div class="form-group col-md-6">
             <label for="birth">Дата народження</label>
-            <input type="date" class="form-control" id="birth" name="birth" placeholder="дд.мм.рр">
+            <input type="date" class="form-control" id="birth" name="birth" placeholder="дд.мм.рр" required>
           </div>
           <div class="form-group col-md-6">
             <div class="col-md-7">
@@ -45,13 +45,13 @@
               <label for="sex">Стать</label>
               <div class="radio">
                 <label>
-                  <input type="radio" name="sex" id="sex" value="1">
+                  <input type="radio" name="sex" id="sex" value="1" required>
                   Чоловіча
                 </label>
               </div>
               <div class="radio">
                 <label>
-                  <input type="radio" name="sex" id="sex" value="0">
+                  <input type="radio" name="sex" id="sex" value="0" required>
                   Жіноча
                 </label>
               </div>

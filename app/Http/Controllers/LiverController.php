@@ -19,19 +19,37 @@ class LiverController extends Controller {
 
 	public function getIndex()
 	{
-		return view('liver.index', ['livers' => Liver::all()]);
+    $livers = Liver::all();
+    foreach ($livers as &$l) {
+      $l->birth = implode('.', array_reverse(explode('-',$l->birth)));
+      $l->live_in= implode('.', array_reverse(explode('-',$l->live_in)));
+      $l->live_out = implode('.', array_reverse(explode('-',$l->live_out)));
+    }
+    return view('liver.index', ['livers' => $livers]);
 	}
   public function getActive()
   {
-    return view('liver.active', ['livers' => Liver::all()]);
+    $livers = Liver::active();
+    foreach ($livers as &$l) {
+      $l->birth = implode('.', array_reverse(explode('-',$l->birth)));
+    }
+    return view('liver.active', ['livers' => $livers]);
   }
   public function getNonactive()
   {
-    return view('liver.nonactive', ['livers' => Liver::all()]);
+    $livers = Liver::nonactive();
+    foreach ($livers as &$l) {
+      $l->birth = implode('.', array_reverse(explode('-',$l->birth)));
+    }
+    return view('liver.nonactive', ['livers' => $livers]);
   }
   public function getRemoved()
   {
-    return view('liver.removed', ['livers' => Liver::all()]);
+    $livers = Liver::removed();
+    foreach ($livers as &$l) {
+      $l->birth = implode('.', array_reverse(explode('-',$l->birth)));
+    }
+    return view('liver.removed', ['livers' => $livers]);
   }
   public function getCreate()
   {
@@ -43,7 +61,7 @@ class LiverController extends Controller {
       'last_name' => $req->input('last_name'),
       'first_name' => $req->input('first_name'),
       'parent_name' => $req->input('parent_name'),
-      'birth' => $req->input('birth'),
+      'birth' => date("Y-m-d", strtotime($req->input('birth'))),
       'sex' => $req->input('sex'),
       'student' => ($req->input('student') == 'on')?true:false,
       'group_id' => ($req->input('student') == 'on')?$req->input('group'):0,
@@ -56,16 +74,20 @@ class LiverController extends Controller {
       'series' => $req->input('series'),
       'number' => $req->input('number'),
       'which' => $req->input('which'),
-      'when' => $req->input('when'),
+      'when' => date("Y-m-d", strtotime($req->input('when'))),
       'tel1' => $req->input('tel1'),
       'tel2' => $req->input('tel2'),
-      'tel3' => $req->input('tel3')
+      'tel3' => $req->input('tel3'),
+      'balance' => 0.0,
+
     ]);
     return Redirect::to('/livers/settle/'.$l->id);
   }
   public function getEdit($id)
   {
-    return view('liver.edit', ['liver' => Liver::find($id), 'groups' => Group::all(), 'faculties' => Facult::all()]);
+    $l = Liver::find($id);
+    $l->birth = implode('.', array_reverse(explode('-',$l->birth)));
+    return view('liver.edit', ['liver' => $l, 'groups' => Group::all(), 'faculties' => Facult::all()]);
   }
   public function postEdit(Request $req)
   {
@@ -73,7 +95,7 @@ class LiverController extends Controller {
     $liver->last_name = $req->input('last_name');
     $liver->first_name = $req->input('first_name');
     $liver->parent_name = $req->input('parent_name');
-    $liver->birth = $req->input('birth');
+    $liver->birth = date("Y-m-d", strtotime($req->input('birth')));
     $liver->sex = $req->input('sex');
     $liver->student = ($req->input('student') == 'on')?true:false;
     $liver->group_id = ($req->input('student') == 'on')?$req->input('group'):0;
@@ -86,7 +108,7 @@ class LiverController extends Controller {
     $liver->series = $req->input('series');
     $liver->number = $req->input('number');
     $liver->which = $req->input('which');
-    $liver->when = $req->input('when');
+    $liver->when = date("Y-m-d", strtotime($req->input('when')));
     $liver->tel1 = $req->input('tel1');
     $liver->tel2 = $req->input('tel2');
     $liver->tel3 = $req->input('tel3');
@@ -100,8 +122,9 @@ class LiverController extends Controller {
   }
   public function getShow($id)
   {
-    $liver = Liver::find($id);
-    return view('liver.show', ['liver' => $liver]);
+    $l = Liver::find($id);
+    $l->birth = implode('.', array_reverse(explode('-',$l->birth)));
+    return view('liver.show', ['liver' => $l]);
   }
   public function getSettle($id)
   {
@@ -116,11 +139,8 @@ class LiverController extends Controller {
           $room = null;
           break;
         }
-
       }
-
     }
-
     return view('liver.settle', ['rooms' => $rooms , 'liver' => $liver ]);
   }
   public function postSettle(Request $req)
@@ -128,6 +148,11 @@ class LiverController extends Controller {
     $liver = Liver::find($req->input('id'));
     $room = Room::find($req->input('room'));
     $liver->room_id = $room->id;
+    if (!$liver->active)
+    {
+      $liver->live_in = date('Y-m-d');
+      $liver->active = true;
+    }
     $liver->save();
     $room->livers()->save($liver);
     return Redirect::to('/livers');
@@ -136,7 +161,20 @@ class LiverController extends Controller {
   {
     $liver = Liver::find($id);
     $liver->room_id = null;
+    $liver->active = false;
+    $liver->live_out = date('Y-m-d');
     $liver->save();
+    return Redirect::to('/livers');
+  }
+  public function getMoney($id)
+  {
+    return view('liver.money', ['liver' => Liver::find($id)]);
+  }
+  public function postMoney(Request $req)
+  {
+    $l = Liver::find($req->input('id'));
+    $l->balance += $req->input('suma');
+    $l->save();
     return Redirect::to('/livers');
   }
 }
